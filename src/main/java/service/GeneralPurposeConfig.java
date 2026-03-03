@@ -16,7 +16,6 @@ public final class GeneralPurposeConfig {
     }
 
     public static GeneralPurposeConfig initialize(String[] args) {
-
         String path = resolveConfigPath(args);
         return new GeneralPurposeConfig(path);
     }
@@ -36,7 +35,7 @@ public final class GeneralPurposeConfig {
             return env;
         }
 
-        // 3️⃣ Default
+        // Default
         return "config/Database_config.conf";
     }
 
