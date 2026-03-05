@@ -1,1 +1,1 @@
-Hallo
+Diese confi muss beim starten eingefügt werden --config=C:/Apache24/cgi-bin/config/Database_config.conf

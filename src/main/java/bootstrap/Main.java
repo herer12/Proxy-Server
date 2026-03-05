@@ -1,6 +1,4 @@
-package logic;
-
-import Bootstrap.Application;
+package bootstrap;
 
 public class Main {
 

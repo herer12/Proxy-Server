@@ -1,4 +1,4 @@
-package Bootstrap;
+package bootstrap;
 
 import model.Server;
 import service.GeneralPurposeConfig;
@@ -10,9 +10,17 @@ public final class Application {
 
     private Application() {}
 
+    /**
+     * Starts the application by initializing the necessary configuration, creating
+     * and starting the server, and handling any exceptions that occur during startup.
+     *
+     * @param args Command-line arguments passed to the application, used to
+     *             initialize the configuration.
+     */
     public static void start(String[] args) {
 
         try {
+            logger.setLogFile("../../logs/proxy.log");
 
             logger.info("Starte Proxy Server...");
 

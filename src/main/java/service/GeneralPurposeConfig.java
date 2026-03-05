@@ -81,7 +81,7 @@ public final class GeneralPurposeConfig {
         }
 
         // Default
-        return "config/Database_config.conf";
+        return "../../config/Database_config.conf";
     }
 
     /**
