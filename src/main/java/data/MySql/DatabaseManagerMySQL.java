@@ -1,4 +1,4 @@
-package data;
+package data.MySql;
 
 import service.GeneralPurposeConfig;
 import service.Logger;
@@ -20,7 +20,7 @@ public class DatabaseManagerMySQL {
      * @return A {@code Connection} object representing the MySQL database connection, or {@code null}
      *         if the connection attempt fails.
      */
-    public Connection mysqlConnection() {
+    Connection mysqlConnection() {
         logger.info("Starte Verbindung zum MySql");
         String[] credentials = getCredentials();
         try {
