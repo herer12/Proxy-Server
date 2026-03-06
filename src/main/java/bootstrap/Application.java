@@ -3,6 +3,7 @@ package bootstrap;
 import model.Server;
 import service.GeneralPurposeConfig;
 import service.Logger;
+import service.Repos;
 
 public final class Application {
 
@@ -29,6 +30,8 @@ public final class Application {
 
             //  Server erzeugen (Dependency Injection vorbereitet)
             Server server = new Server(config);
+
+            Repos repos = new Repos(config);
 
             // Server starten
             server.start();
