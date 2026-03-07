@@ -24,13 +24,14 @@ public class Repos {
         }
     }
     private void mySqlSetup(){
+        DatabaseManagerMySQL databaseManagerMySQL = new DatabaseManagerMySQL(config);
         userRepository = new UserMySQL();
-        productRepository = new ProductMySQL();
+        productRepository = new ProductMySQL(databaseManagerMySQL);
         cartRepository = new CartMySQL();
         orderRepository = new OrderMySQL();
         addressRepository = new AddressMySQL();
         reviewRepository = new ReviewMySQL();
-        categoryRepository = new CategoryMySQL();
+        categoryRepository = new CategoryMySQL(databaseManagerMySQL);
     }
 
     public UserRepository getUserRepository() {

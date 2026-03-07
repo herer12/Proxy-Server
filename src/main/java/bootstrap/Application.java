@@ -1,5 +1,6 @@
 package bootstrap;
 
+import controller.RestAPIProductsController;
 import model.Server;
 import service.GeneralPurposeConfig;
 import service.Logger;
@@ -33,8 +34,13 @@ public final class Application {
 
             Repos repos = new Repos(config);
 
+
+
             // Server starten
             server.start();
+
+            RestAPIProductsController apiProductsController = new RestAPIProductsController(repos);
+            apiProductsController.registerRestAPIProducts(server.getHttpServer());
 
             logger.info("Application erfolgreich gestartet.");
 

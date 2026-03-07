@@ -10,4 +10,5 @@ public interface CategoryRepository {
     public void deleteCategory(int id);
     public LinkedList<Category> getAllCategories();
     public LinkedList<Category> getAllCategoriesByName(String name);
+    public Category getCategoryByID(int id);
 }
