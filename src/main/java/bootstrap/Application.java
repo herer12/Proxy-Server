@@ -1,6 +1,7 @@
 package bootstrap;
 
 import controller.RestAPIProductsController;
+import controller.RestApiSearchController;
 import model.Server;
 import service.GeneralPurposeConfig;
 import service.Logger;
@@ -34,13 +35,16 @@ public final class Application {
 
             Repos repos = new Repos(config);
 
-
-
             // Server starten
             server.start();
 
+            RestApiSearchController apiSearchController = new RestApiSearchController(repos);
+            apiSearchController.registerRestAPISearch(server.getHttpServer());
+
             RestAPIProductsController apiProductsController = new RestAPIProductsController(repos);
             apiProductsController.registerRestAPIProducts(server.getHttpServer());
+
+
 
             logger.info("Application erfolgreich gestartet.");
 

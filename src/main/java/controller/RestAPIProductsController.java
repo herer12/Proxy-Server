@@ -27,24 +27,7 @@ public class RestAPIProductsController {
 
     private void apiCalledUpon(HttpExchange exchange) {
 
-        try {
-            logger.info("API called upon");
-
-            ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(getAllProducts());
-
-            logger.info("JSON: " + json);
-
-            exchange.getResponseHeaders().add("Content-Type", "application/json");
-            exchange.sendResponseHeaders(200, json.getBytes().length);
-            OutputStream os = exchange.getResponseBody();
-            os.write(json.getBytes());
-            os.close();
-            logger.info("API response sent");
-
-        } catch (IOException e) {
-            logger.severe("API response could not be sent: " + e.getMessage());
-        }
+       ApiHelper.sendingJson(exchange, getAllProducts());
 
 
     }
