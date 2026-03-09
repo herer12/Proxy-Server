@@ -30,4 +30,20 @@
         } catch (IOException e) {
             logger.severe("API response could not be sent: " + e.getMessage());
         }}
+        public static boolean checkIFPost(HttpExchange exchange){
+            if (!exchange.getRequestMethod().equalsIgnoreCase("POST")) {
+                logger.severe("HTTP method not supported");
+                try {
+
+                    exchange.sendResponseHeaders(405, -1);
+                    exchange.getResponseBody().close();
+
+                }catch (IOException e){
+                    logger.severe("API response could not be sent: " + e.getMessage());
+
+                }
+                return false;
+            }
+            return true;
+        }
     }

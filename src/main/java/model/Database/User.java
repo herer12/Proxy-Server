@@ -11,4 +11,14 @@ public class User {
     private String phone;
     private Date created;
     private int is_active;
+
+    public String getPassword() {
+        return password;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public int getUserID() {
+        return userID;
+    }
 }

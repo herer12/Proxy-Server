@@ -2,7 +2,6 @@ package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import model.Database.Product;
 import service.Logger;
@@ -10,7 +9,6 @@ import service.Repos;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 
@@ -28,15 +26,7 @@ public class RestApiSearchController {
     private void apiCalledUpon(HttpExchange exchange)  {
         logger.info("Received request to /api/products/search");
         //Crash if not Post
-        if (!exchange.getRequestMethod().equalsIgnoreCase("POST")) {
-            logger.severe("HTTP method not supported");
-            try {
-                exchange.sendResponseHeaders(405, -1);
-            }catch (IOException e){
-                logger.severe("API response could not be sent: " + e.getMessage());
-            }
-            return;
-        }
+        if (!ApiHelper.checkIFPost(exchange)) return;
 
         InputStream in = exchange.getRequestBody();
         String responseBody="";
