@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public interface UserRepository {
     public LinkedList<User> getAllUsers();
     public User getUserByEmail(String email);
-    public void addUser(User user);
+    public boolean addUser(User user);
     public void updateUser(User user);
     public void deleteUser(int id);
     public Address getUserAddress(int id);

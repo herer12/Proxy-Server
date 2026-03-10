@@ -25,7 +25,7 @@ public class Repos {
     }
     private void mySqlSetup(){
         DatabaseManagerMySQL databaseManagerMySQL = new DatabaseManagerMySQL(config);
-        userRepository = new UserMySQL();
+        userRepository = new UserMySQL(databaseManagerMySQL);
         productRepository = new ProductMySQL(databaseManagerMySQL);
         cartRepository = new CartMySQL();
         orderRepository = new OrderMySQL();

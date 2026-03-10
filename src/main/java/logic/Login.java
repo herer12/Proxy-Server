@@ -15,9 +15,9 @@ public class Login {
     private User user;
 
     public boolean checkData(LoginRequest request, Repos repos, HttpExchange exchange){
-        user =repos.getUserRepository().getUserByEmail(request.e_mail);
+        user =repos.getUserRepository().getUserByEmail(request.email);
         if (user == null) return false;
-        logger.info("Login attempt: " + request.e_mail);
+        logger.info("Login attempt: " + request.email);
         if (!BCrypt.checkpw(request.password,user.getPassword())) return false;
         logger.info("Password correct");
 

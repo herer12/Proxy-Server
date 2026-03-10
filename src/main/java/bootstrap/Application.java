@@ -1,6 +1,8 @@
 package bootstrap;
 
 import controller.RestAPIProductsController;
+import controller.RestApiLoginController;
+import controller.RestApiRegisterController;
 import controller.RestApiSearchController;
 import model.Server;
 import service.GeneralPurposeConfig;
@@ -43,6 +45,12 @@ public final class Application {
 
             RestAPIProductsController apiProductsController = new RestAPIProductsController(repos);
             apiProductsController.registerRestAPIProducts(server.getHttpServer());
+
+            RestApiRegisterController apiRegisterController = new RestApiRegisterController(repos);
+            apiRegisterController.registerApiRegister(server.getHttpServer());
+
+            RestApiLoginController apiLoginController = new RestApiLoginController(repos);
+            apiLoginController.registerRestAPILogin(server.getHttpServer());
 
 
 
