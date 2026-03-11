@@ -1,9 +1,6 @@
 package bootstrap;
 
-import controller.RestAPIProductsController;
-import controller.RestApiLoginController;
-import controller.RestApiRegisterController;
-import controller.RestApiSearchController;
+import controller.*;
 import model.Server;
 import service.GeneralPurposeConfig;
 import service.Logger;
@@ -52,6 +49,8 @@ public final class Application {
             RestApiLoginController apiLoginController = new RestApiLoginController(repos);
             apiLoginController.registerRestAPILogin(server.getHttpServer());
 
+            RestAPILoggedInController apiLoggedInController = new RestAPILoggedInController(repos);
+            apiLoggedInController.registerApi(server.getHttpServer());
 
 
             logger.info("Application erfolgreich gestartet.");

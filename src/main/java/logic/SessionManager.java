@@ -17,7 +17,7 @@ public class SessionManager {
     public static boolean hasValidSession(HttpExchange exchange){
         String cookie = exchange.getRequestHeaders().getFirst("Cookie");
 
-        if(cookie != null && cookie.contains("SESSIONID=")){
+        if(cookie != null && cookie.contains("session=")){
 
             String sessionId = cookie.split("=")[1];
 
