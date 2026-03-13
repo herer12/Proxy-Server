@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 public class DatabaseManagerMySQL {
     private final GeneralPurposeConfig config;
     Logger logger = Logger.getInstance();
-    DatabaseManagerMySQL(GeneralPurposeConfig config) {
+    public DatabaseManagerMySQL(GeneralPurposeConfig config) {
         this.config = config;
     }
 

@@ -36,4 +36,7 @@ public class Server {
 
         logger.info("HTTP Server gestartet auf Port " + port);
     }
+    public HttpServer getHttpServer() {
+        return httpServer;
+    }
 }

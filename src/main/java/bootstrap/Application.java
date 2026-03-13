@@ -1,5 +1,6 @@
 package bootstrap;
 
+import controller.*;
 import model.Server;
 import service.GeneralPurposeConfig;
 import service.Logger;
@@ -35,6 +36,25 @@ public final class Application {
 
             // Server starten
             server.start();
+
+            RestApiSearchController apiSearchController = new RestApiSearchController(repos);
+            apiSearchController.registerRestAPISearch(server.getHttpServer());
+
+            RestAPIProductsController apiProductsController = new RestAPIProductsController(repos);
+            apiProductsController.registerRestAPIProducts(server.getHttpServer());
+
+            RestApiRegisterController apiRegisterController = new RestApiRegisterController(repos);
+            apiRegisterController.registerApiRegister(server.getHttpServer());
+
+            RestApiLoginController apiLoginController = new RestApiLoginController(repos);
+            apiLoginController.registerRestAPILogin(server.getHttpServer());
+
+            RestAPILoggedInController apiLoggedInController = new RestAPILoggedInController(repos);
+            apiLoggedInController.registerApi(server.getHttpServer());
+
+            RestApiAddProductToCartController apiAddProductToCartController = new RestApiAddProductToCartController(repos);
+            apiAddProductToCartController.registerApi(server.getHttpServer());
+
 
             logger.info("Application erfolgreich gestartet.");
 
