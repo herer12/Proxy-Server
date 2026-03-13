@@ -52,6 +52,9 @@ public final class Application {
             RestAPILoggedInController apiLoggedInController = new RestAPILoggedInController(repos);
             apiLoggedInController.registerApi(server.getHttpServer());
 
+            RestApiAddProductToCartController apiAddProductToCartController = new RestApiAddProductToCartController(repos);
+            apiAddProductToCartController.registerApi(server.getHttpServer());
+
 
             logger.info("Application erfolgreich gestartet.");
 

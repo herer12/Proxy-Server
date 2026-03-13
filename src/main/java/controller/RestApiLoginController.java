@@ -41,16 +41,17 @@ public class RestApiLoginController {
             if (login.checkData(loginRequest, repos, exchange)) {
 
                 logger.info("Login successful");
+                UUID uuid = login.createSessionId();
 
-                exchange.getResponseHeaders().add("Set-Cookie", "session=" + login.getSessionId() + "; HttpOnly; Path=/");
+                exchange.getResponseHeaders().add("Set-Cookie", "session=" + uuid + "; HttpOnly; Path=/");
 
-                 response = new HashMap<>();
+                response = new HashMap<>();
                 response.put("success", true);
-                response.put("sessionId", login.getSessionId());
+                response.put("sessionId", uuid);
             }else {
                  response = new HashMap<>();
                 response.put("success", false);
-                response.put("sessionId", login.getSessionId());
+                response.put("sessionId", 0);
             }
 
             String json = mapper.writeValueAsString(response);

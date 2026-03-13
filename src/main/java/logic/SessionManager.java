@@ -16,14 +16,16 @@ public class SessionManager {
 
     public static boolean hasValidSession(HttpExchange exchange){
         String cookie = exchange.getRequestHeaders().getFirst("Cookie");
+        logger.info("Cookie: " + cookie);
 
-        if(cookie != null && cookie.contains("session=")){
+        if(cookie != null && cookie.contains("session")){
 
             String sessionId = cookie.split("=")[1];
 
             SessionRepository repo = new SessionRepository();
 
             if(repo.isSessionValid(sessionId)){
+                logger.info("Session is valid");
 
                 return true;
             }

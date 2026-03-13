@@ -21,7 +21,7 @@ public class UserMySQL implements UserRepository {
     }
 
     String getUsers = "SELECT account_id, firstname, lastname, email, password, created_at, is_active FROM account ";
-    String getUserByID = getUsers + "WHERE user_id = ?";
+    String getUserByID = getUsers + "WHERE account_id = ?";
     String getUserByEmail = getUsers + "WHERE email = ?";
     String insertUser = "INSERT INTO account (firstname, lastname, email, password, created_at) VALUES (?, ?, ?, ?, ?)";
 
@@ -80,6 +80,26 @@ public class UserMySQL implements UserRepository {
     }
 
     @Override
+    public User getUserByID(int id) {
+        logger.info("Getting user from MySQL");
+        try (Connection connection =dbManager.mysqlConnection()){
+            PreparedStatement statement = connection.prepareStatement(getUserByID);
+            statement.setInt(1, id );
+            ResultSet resultSet =statement.executeQuery();
+            if (resultSet.next()) {
+                User user = mapUser(resultSet);
+                logger.info("User found: " + user.getCreated());
+                return user;
+            }
+
+        }catch (Exception e){
+            logger.severe("Could not connect to MySQL: " + e.getMessage());
+
+        }
+        return null;
+    }
+
+    @Override
     public boolean addUser(User user) {
         logger.info("Inserting user into MySQL");
         try (Connection connection =dbManager.mysqlConnection()){
@@ -96,6 +116,8 @@ public class UserMySQL implements UserRepository {
             logger.info("password: " + user.getPassword());
             statement.setTimestamp(5, Timestamp.valueOf(user.getCreated()));
             logger.info("created: " + user.getCreated());
+            CartMySQL cartMySQL = new CartMySQL(dbManager);
+            cartMySQL.addCart(new Cart(user.getUserID(), user, user.getCreated()));
 
 
             statement.executeUpdate();

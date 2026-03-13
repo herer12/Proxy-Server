@@ -24,7 +24,7 @@ public class Login {
 
         return true;
     }
-    public UUID getSessionId() {
+    public UUID createSessionId() {
         return SessionManager.createSessionId(user.getUserID());
     }
 

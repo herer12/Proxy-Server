@@ -12,6 +12,7 @@ public class Repos {
     private AddressRepository addressRepository;
     private ReviewRepository reviewRepository;
     private CategoryRepository categoryRepository;
+    private CartItemRepository cartItemRepository;
 
     private GeneralPurposeConfig config;
     Database_Typ database_type;
@@ -27,11 +28,12 @@ public class Repos {
         DatabaseManagerMySQL databaseManagerMySQL = new DatabaseManagerMySQL(config);
         userRepository = new UserMySQL(databaseManagerMySQL);
         productRepository = new ProductMySQL(databaseManagerMySQL);
-        cartRepository = new CartMySQL();
+        cartRepository = new CartMySQL(databaseManagerMySQL);
         orderRepository = new OrderMySQL();
         addressRepository = new AddressMySQL();
         reviewRepository = new ReviewMySQL();
         categoryRepository = new CategoryMySQL(databaseManagerMySQL);
+        cartItemRepository = new CartItemMySQL(databaseManagerMySQL);
     }
 
     public UserRepository getUserRepository() {
@@ -68,5 +70,9 @@ public class Repos {
 
     public Database_Typ getDatabase_type() {
         return database_type;
+    }
+
+    public CartItemRepository getCartItemRepository() {
+        return cartItemRepository;
     }
 }

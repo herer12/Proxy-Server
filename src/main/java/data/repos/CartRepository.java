@@ -8,6 +8,7 @@ public interface CartRepository {
     public void updateCart(Cart cart);
     public void deleteCart(Cart cart);
     public Cart getCartByUser(User user);
+    public Cart getCartByID(int id);
 
 
 }

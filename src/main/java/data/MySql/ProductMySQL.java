@@ -21,6 +21,7 @@
 
         String getAllProductsQuery = "SELECT product_id, name, price, category_id, description, created_at FROM product";
         String getGetAllProductsQueryByKeyword = "SELECT product_id, name, price, category_id, description, created_at FROM product where name LIKE ?";
+        private String getProductByIDQuery = getAllProductsQuery+" WHERE product_id = ?";
 
 
         private Product mapProduct(ResultSet resultSet){
@@ -81,6 +82,20 @@
 
         @Override
         public Product getProductByID(int id) {
+            logger.info("Getting product by ID: " + id);
+            try (Connection connection = dbManager.mysqlConnection()){
+
+                PreparedStatement statement = connection.prepareStatement(getProductByIDQuery);
+                statement.setInt(1, id);
+                ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    return mapProduct(resultSet);
+                }
+                logger.warning("Product not found: " + id);
+
+            }catch (Exception e){
+                logger.severe("Could not connect to MySQL: " + e.getMessage());
+            }
             return null;
         }
 

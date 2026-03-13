@@ -31,6 +31,7 @@ public class RestAPILoggedInController extends RestApiControllerAbstract {
             "loggedIn": %s
         }
         """.formatted(loggedIn);
+        logger.info("JSON: " + jsonResponse);
 
         byte[] responseBytes = jsonResponse.getBytes();
 
