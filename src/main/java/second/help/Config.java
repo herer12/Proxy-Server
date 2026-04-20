@@ -1,6 +1,6 @@
-package second.service;
+package second.help;
 
-import second.modell.Database_Type;
+import second.repository.Database_Type;
 
 public final class Config {
     private String configPath = "../../config/Database_config.conf";

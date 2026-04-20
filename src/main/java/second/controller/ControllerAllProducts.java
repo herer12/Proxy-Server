@@ -1,11 +1,18 @@
 package second.controller;
 
-import second.modell.Repos;
+import second.repository.general.ProductsDAO;
+import second.service.GetAllProductsService;
 import second.view.ApiAllProducts;
 
 public class ControllerAllProducts extends Controller {
-    public ControllerAllProducts(Repos repos, String path) {
-        super(repos, path);
-        restApi = new ApiAllProducts(path, this);
+
+    private final GetAllProductsService service;
+
+    public ControllerAllProducts(GetAllProductsService service) {
+        this.service = service;
+    }
+
+    public Object getAllProducts() {
+        return service.execute();
     }
 }

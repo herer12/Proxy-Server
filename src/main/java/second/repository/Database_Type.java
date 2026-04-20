@@ -1,4 +1,4 @@
-package second.modell;
+package second.repository;
 
 public enum Database_Type {
     MYSQL,

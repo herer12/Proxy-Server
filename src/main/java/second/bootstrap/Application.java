@@ -1,20 +1,47 @@
 package second.bootstrap;
 
-import second.modell.Repos;
+import second.controller.Controller;
 import second.controller.ControllerAllProducts;
-import second.service.Config;
-import second.service.PrepareConfig;
+import second.repository.Database_Type;
+import second.repository.mySQL.MySqlProductsDAO;
+import second.repository.general.ProductsDAO;
+import second.help.Config;
+import second.help.PrepareConfig;
+import second.service.GetAllProductsService;
+import second.view.ApiAllProducts;
 import second.view.Server;
 
 public class Application {
-    public static void main(String[] args) {
-        Config config = PrepareConfig.getInstance().config;
+    private static ProductsDAO repo;
 
-        Repos repos = new Repos(config);
+        public static void main(String[] args) {
 
-        new Server();
+            // Load Config
+            Config config = PrepareConfig.getInstance().config;
 
-        new ControllerAllProducts(repos, "/products/all");
+            // DB Auswahl
+            createProductsDAO(config.getDatabase_type());
 
+            // Service
+            GetAllProductsService service = new GetAllProductsService(repo);
+
+            // Controller
+            Controller controller = new ControllerAllProducts(service);
+
+            // API / Server
+            Server.getInstance();
+
+            new ApiAllProducts("/products/all", controller);
+        }
+
+
+    private static ProductsDAO createProductsDAO(Database_Type type) {
+        switch (type) {
+            case MYSQL:
+                return new MySqlProductsDAO();
+
+            default:
+                throw new RuntimeException("Unsupported DB type");
+        }
     }
 }

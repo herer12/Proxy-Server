@@ -1,7 +1,7 @@
-package second.service;
+package second.help;
 
 import at.herer12_erik_van_haentjens.logging.Logger;
-import second.modell.Database_Type;
+import second.repository.Database_Type;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,7 +13,8 @@ public final class PrepareConfig {
     private final Logger logger = Logger.getLogger(PrepareConfig.class);
     public Config config = new Config();
 
-    private PrepareConfig(String path) {
+    private PrepareConfig() {
+        String path = config.getConfigPath();
         loadConfig(path);
         applyToConfig();
     }
@@ -53,13 +54,13 @@ public final class PrepareConfig {
     private void applyEntry(String key, String value) {
 
         switch (key) {
-            case "database_type":
+            case "Database_type":
                 config.setDatabase_type(Database_Type.valueOf(value));
                 break;
-            case "configPath":
+            case "ConfigPath":
                 config.setConfigPath(value);
                 break;
-            case "port":
+            case "Port":
                 config.setPort(Integer.parseInt(value));
                 break;
             case "MYSQL_URL":
@@ -72,6 +73,7 @@ public final class PrepareConfig {
                 config.setMYSQL_PASSWORD(value);
                 break;
         }
+        logger.debug(key + ": " + value);
     }
 
     public void saveConfig(String path) {
@@ -98,7 +100,7 @@ public final class PrepareConfig {
 
     public static PrepareConfig getInstance() {
         if (instance == null) {
-            instance = new PrepareConfig(config.getConfigPath());
+            instance = new PrepareConfig();
         }
         return instance;
     }

@@ -2,8 +2,8 @@ package second.view;
 
 import at.herer12_erik_van_haentjens.logging.Logger;
 import com.sun.net.httpserver.HttpServer;
-import second.service.Config;
-import second.service.PrepareConfig;
+import second.help.Config;
+import second.help.PrepareConfig;
 
 import java.net.InetSocketAddress;
 
@@ -15,7 +15,7 @@ public class Server {
     private static volatile Server instance;
     private static final Object LOCK = new Object();
 
-    public Server() {
+    private Server() {
         this.config = PrepareConfig.getInstance().config;
         start();
     }
@@ -36,6 +36,7 @@ public class Server {
         try {
 
             int port = config.getPort();
+            logger.debug("Server started on port " + port);
 
             httpServer = HttpServer.create(new InetSocketAddress(port), 0);
             httpServer.start();
@@ -43,6 +44,7 @@ public class Server {
             logger.info("HTTP Server gestartet auf Port " + port);
         }catch (Exception e){
             logger.fatal("HTTP Server konnte nicht gestartet werden: " + e.getMessage());
+            System.exit(404);
         }
     }
 

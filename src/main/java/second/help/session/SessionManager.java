@@ -1,4 +1,4 @@
-package second.service.session;
+package second.help.session;
 
 import com.sun.net.httpserver.HttpExchange;
 import at.herer12_erik_van_haentjens.logging.Logger;
