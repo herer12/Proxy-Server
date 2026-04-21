@@ -23,15 +23,18 @@ public class ApiAllProducts extends RestApi {
 
     @Override
     protected void startApi(HttpExchange exchange) {
+        logger.debug("GET /products");
         JsonResponse jsonResponse = new JsonResponse();
 
         Object object = null;
 
-        if (controller instanceof ControllerAllProducts){
-            object = ((ControllerAllProducts) controller).getAllProducts();
-        }else {
-            logger.error("Wrong Controller", controller);
-        }
+            if (controller instanceof ControllerAllProducts) {
+                object = ((ControllerAllProducts) controller).getAllProducts();
+
+            } else {
+                logger.error("Wrong Controller", controller);
+            }
+
 
         jsonResponse.data =ApiHelper.prepareJson(object);
 

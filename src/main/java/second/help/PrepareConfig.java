@@ -54,7 +54,7 @@ public final class PrepareConfig {
     private void applyEntry(String key, String value) {
 
         switch (key) {
-            case "Database_type":
+            case "Database_Typ":
                 config.setDatabase_type(Database_Type.valueOf(value));
                 break;
             case "ConfigPath":

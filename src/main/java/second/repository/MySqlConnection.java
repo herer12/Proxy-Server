@@ -44,7 +44,7 @@ public class MySqlConnection {
             return DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
             logger.fatal("Database connection failed: " + e.getMessage(), e);
-            throw new RuntimeException("DB connection failed", e);
+            return null;
         }
     }
 }

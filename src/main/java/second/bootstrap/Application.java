@@ -35,11 +35,11 @@ public class Application {
         }
 
 
-    private static ProductsDAO createProductsDAO(Database_Type type) {
+    private static void createProductsDAO(Database_Type type) {
         switch (type) {
             case MYSQL:
-                return new MySqlProductsDAO();
-
+                repo = new MySqlProductsDAO();
+                break;
             default:
                 throw new RuntimeException("Unsupported DB type");
         }

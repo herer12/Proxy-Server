@@ -13,6 +13,12 @@ public class ControllerAllProducts extends Controller {
     }
 
     public Object getAllProducts() {
-        return service.execute();
+        try {
+            return service.execute();
+        } catch (Exception e) {
+            logger.error("Error getting all products", e);
+            return null;
+        }
+
     }
 }

@@ -9,18 +9,20 @@ public class Product {
     private double price;
     private int category_id;
     private Timestamp created_at;
+    private String image_path;
 
     Product(int product_id){
         this.product_id = product_id;
     }
 
-    public Product(int product_id, String name, String description, double price, int category_id, Timestamp created_at){
+    public Product(int product_id, String name, String description, double price, int category_id, Timestamp created_at, String image_path){
         this.product_id = product_id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category_id = category_id;
         this.created_at = created_at;
+        this.image_path = image_path;
     }
 
     @Override
@@ -32,8 +34,17 @@ public class Product {
         sb.append(", price=").append(price);
         sb.append(", category_id=").append(category_id);
         sb.append(", created_at=").append(created_at);
+        sb.append(", image_path='").append(image_path).append('\'');
         sb.append('}');
         return sb.toString();
+    }
+
+    public String getImage_path() {
+        return image_path;
+    }
+
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
     }
 
     public String getName() {

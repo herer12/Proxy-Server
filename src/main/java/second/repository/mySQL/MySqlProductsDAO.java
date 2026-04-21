@@ -14,7 +14,7 @@ import java.util.LinkedList;
 public class MySqlProductsDAO implements ProductsDAO {
 
     Logger logger = Logger.getLogger(MySqlProductsDAO.class);
-    String sqlQueryAllProducts = "SELECT product_id, name, description, price, category_id, created_at FROM products";
+    String sqlQueryAllProducts = "SELECT product_id, name, description, price, category_id, created_at, image_path FROM product";
 
     private Product buildProduct(ResultSet rs){
         try {
@@ -24,8 +24,9 @@ public class MySqlProductsDAO implements ProductsDAO {
             double price = rs.getDouble("price");
             int category_id = rs.getInt("category_id");
             Timestamp created_at = rs.getTimestamp("created_at");
+            String image_path = rs.getString("image_path");
 
-            return new Product(product_id, name, description, price, category_id, created_at);
+            return new Product(product_id, name, description, price, category_id, created_at, image_path);
 
 
         } catch (Exception e) {
@@ -50,6 +51,7 @@ public class MySqlProductsDAO implements ProductsDAO {
 
     @Override
     public LinkedList<Product> getAllProducts() {
+        logger.debug("Getting all products");
         LinkedList<Product> products = new LinkedList<>();
 
         try (Connection conn = MySqlConnection.getInstance().getConnection()) {
