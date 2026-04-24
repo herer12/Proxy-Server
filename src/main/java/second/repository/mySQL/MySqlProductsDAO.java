@@ -15,6 +15,7 @@ public class MySqlProductsDAO implements ProductsDAO {
 
     Logger logger = Logger.getLogger(MySqlProductsDAO.class);
     String sqlQueryAllProducts = "SELECT product_id, name, description, price, category_id, created_at, image_path FROM product";
+    String sqlQueryProductLikeQuery = "SELECT product_id, name, description, price, category_id, created_at, image_path FROM product WHERE name LIKE ?";
 
     private Product buildProduct(ResultSet rs){
         try {
@@ -63,6 +64,23 @@ public class MySqlProductsDAO implements ProductsDAO {
             logger.error("Error getting all products", e);
         }
 
+        return products;
+    }
+
+    @Override
+    public LinkedList<Product> getProductsLikeQuery(String query) {
+        logger.debug("Getting products like "+"\""+query+"\"");
+        LinkedList<Product> products = new LinkedList<>();
+
+        try (Connection connection = MySqlConnection.getInstance().getConnection()){
+            PreparedStatement stmt = connection.prepareStatement(sqlQueryProductLikeQuery);
+            stmt.setString(1, "%"+query+"%");
+            ResultSet rs = stmt.executeQuery();
+            products = buildProducts(rs);
+
+        }catch (Exception e){
+            logger.error("Error getting products like query", e);
+        }
         return products;
     }
 

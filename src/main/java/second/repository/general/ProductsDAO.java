@@ -6,4 +6,5 @@ import java.util.LinkedList;
 
 public interface ProductsDAO{
     LinkedList<Product> getAllProducts();
+    LinkedList<Product> getProductsLikeQuery(String query);
 }

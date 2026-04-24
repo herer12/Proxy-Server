@@ -2,13 +2,16 @@ package second.bootstrap;
 
 import second.controller.Controller;
 import second.controller.ControllerAllProducts;
+import second.controller.ControllerSearchProducts;
 import second.repository.Database_Type;
 import second.repository.mySQL.MySqlProductsDAO;
 import second.repository.general.ProductsDAO;
 import second.help.Config;
 import second.help.PrepareConfig;
 import second.service.GetAllProductsService;
+import second.service.SearchProductsService;
 import second.view.ApiAllProducts;
+import second.view.ApiSearchProducts;
 import second.view.Server;
 
 public class Application {
@@ -23,15 +26,18 @@ public class Application {
             createProductsDAO(config.getDatabase_type());
 
             // Service
-            GetAllProductsService service = new GetAllProductsService(repo);
+            GetAllProductsService serviceAllProducts = new GetAllProductsService(repo);
+            SearchProductsService serviceSearchProducts = new SearchProductsService(repo);
 
             // Controller
-            Controller controller = new ControllerAllProducts(service);
+            Controller controllerAllProducts = new ControllerAllProducts(serviceAllProducts);
+            Controller controllerSearchProducts = new ControllerSearchProducts(serviceSearchProducts);
 
             // API / Server
             Server.getInstance();
 
-            new ApiAllProducts("/products/all", controller);
+            new ApiAllProducts("/products/all", controllerAllProducts);
+            new ApiSearchProducts("/products/search", controllerSearchProducts);
         }
 
 
