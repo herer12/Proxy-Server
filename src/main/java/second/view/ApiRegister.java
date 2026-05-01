@@ -2,15 +2,12 @@ package second.view;
 
 import com.sun.net.httpserver.HttpExchange;
 import second.controller.Controller;
-import second.controller.ControllerSearchProducts;
+import second.controller.ControllerRegister;
 import second.help.ApiHelper;
+import second.objects.Account;
 
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-
-public class ApiSearchProducts extends RestApi{
-
-    public ApiSearchProducts(String path, Controller controller) {
+public class ApiRegister extends RestApi{
+    public ApiRegister(String path, Controller controller) {
         super(path, controller);
     }
 
@@ -26,22 +23,19 @@ public class ApiSearchProducts extends RestApi{
 
     @Override
     protected void startApi(HttpExchange exchange) {
-        System.out.println("GET /products/search");
         JsonResponse jsonResponse = new JsonResponse();
+        logger.debug("POST /register");
 
-        String queryString = exchange.getRequestURI().getQuery();
+        Account account = ApiHelper.deserializeRegister(exchange);
 
-        Object object = null;
-
-        if (controller instanceof ControllerSearchProducts){
-            object=((ControllerSearchProducts)controller).searchProducts(queryString);
+        if (controller instanceof ControllerRegister){
+            jsonResponse=((ControllerRegister) controller).register(account);
         }else {
             logger.error("Wrong Controller", controller);
         }
 
-        jsonResponse.data = object;
         ApiHelper.checkIfResponseIsOK(jsonResponse);
         ApiHelper.sendResponse(exchange, jsonResponse);
-
     }
+
 }

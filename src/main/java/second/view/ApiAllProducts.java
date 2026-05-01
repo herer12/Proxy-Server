@@ -28,15 +28,16 @@ public class ApiAllProducts extends RestApi {
 
         Object object = null;
 
-            if (controller instanceof ControllerAllProducts) {
-                object = ((ControllerAllProducts) controller).getAllProducts();
+        if (controller instanceof ControllerAllProducts) {
+            object = ((ControllerAllProducts) controller).getAllProducts();
+            jsonResponse.setSuccess(1);
+        } else {
+            logger.error("Wrong Controller", controller);
+            jsonResponse.setSuccess(0);
+        }
 
-            } else {
-                logger.error("Wrong Controller", controller);
-            }
 
-
-        jsonResponse.data =ApiHelper.prepareJson(object);
+        jsonResponse.data =object;
 
         ApiHelper.checkIfResponseIsOK(jsonResponse);
 

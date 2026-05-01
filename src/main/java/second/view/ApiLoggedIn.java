@@ -2,15 +2,11 @@ package second.view;
 
 import com.sun.net.httpserver.HttpExchange;
 import second.controller.Controller;
-import second.controller.ControllerSearchProducts;
+import second.controller.ControllerLoggedIn;
 import second.help.ApiHelper;
 
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-
-public class ApiSearchProducts extends RestApi{
-
-    public ApiSearchProducts(String path, Controller controller) {
+public class ApiLoggedIn extends RestApi{
+    public ApiLoggedIn(String path, Controller controller) {
         super(path, controller);
     }
 
@@ -26,21 +22,15 @@ public class ApiSearchProducts extends RestApi{
 
     @Override
     protected void startApi(HttpExchange exchange) {
-        System.out.println("GET /products/search");
+        logger.debug("GET /loggedin");
         JsonResponse jsonResponse = new JsonResponse();
 
-        String queryString = exchange.getRequestURI().getQuery();
-
-        Object object = null;
-
-        if (controller instanceof ControllerSearchProducts){
-            object=((ControllerSearchProducts)controller).searchProducts(queryString);
-        }else {
-            logger.error("Wrong Controller", controller);
+        if (controller instanceof ControllerLoggedIn){
+            jsonResponse =((ControllerLoggedIn) controller).isLoggedIn(exchange);
         }
 
-        jsonResponse.data = object;
         ApiHelper.checkIfResponseIsOK(jsonResponse);
+        logger.info("Login: " + jsonResponse);
         ApiHelper.sendResponse(exchange, jsonResponse);
 
     }

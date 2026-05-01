@@ -24,12 +24,12 @@ public class SessionManager {
             SessionRepository repo = new SessionRepository();
 
             if(repo.isSessionValid(sessionId)){
-                logger.debug("Session is valid");
+                logger.info("Session is valid");
 
                 return true;
             }
         }else {
-            logger.warn("Session ID not found in cookie");
+            logger.info("Session ID not found in cookie");
         }
         return false;
 
@@ -39,5 +39,8 @@ public class SessionManager {
         String sessionId = cookie.split("=")[1];
         SessionRepository repo = new SessionRepository();
         return repo.getAccountId(sessionId);
+    }
+    public static void writeSessionCookie(HttpExchange exchange, UUID sessionId){
+        exchange.getResponseHeaders().add("Set-Cookie", "session=" + sessionId);
     }
 }

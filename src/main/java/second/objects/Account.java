@@ -3,7 +3,7 @@ package second.objects;
 import java.sql.Timestamp;
 
 public class Account {
-    private final int account_id;
+    private int account_id;
     private String firstname;
     private String lastname;
     private String email;
@@ -12,7 +12,9 @@ public class Account {
     private Timestamp created_at;
     private int is_active;
 
-    Account(int account_id, String firstname, String lastname, String email, String password, String phone, Timestamp created_at) {
+    public Account(){}
+
+    public Account(int account_id, String firstname, String lastname, String email, String password, String phone, Timestamp created_at, int is_active) {
         this.account_id = account_id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -20,7 +22,7 @@ public class Account {
         this.password = password;
         this.phone = phone;
         this.created_at = created_at;
-        this.is_active = 1;
+        this.is_active = is_active;
     }
 
     @Override
